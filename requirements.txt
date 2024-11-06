@@ -1,0 +1,16 @@
+# Data manipulation and analysis
+pandas
+numpy
+
+# Machine Learning libraries
+scikit-learn
+lightgbm
+pandas-profiling
+
+# YAML for configuration files
+pyyaml
+
+# For generating reports
+warnings
+
+

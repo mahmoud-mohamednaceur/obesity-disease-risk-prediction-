@@ -1,0 +1,198 @@
+# Report Variable Sorting
+sort: ascending  # Specifies the order for displaying variables in the report. Options include 'ascending' for sorted output, 'descending' for reverse order, or None for default order without sorting.
+
+# Numerical Feature settings
+vars:
+  num:
+    # Alerts if the skewness of a numerical feature exceeds this threshold, indicating potential non-normality.
+    # Skewness measures the asymmetry of the data distribution; a high value suggests that the data is not normally distributed,
+    # which could affect certain statistical analyses and modeling approaches.
+    skewness_threshold: 20
+
+    # Flags numerical features with fewer distinct values than this threshold as categorical.
+    # This setting helps in identifying features that may behave more like categorical variables,
+    # despite being represented as numerical data. This can guide preprocessing steps such as encoding.
+    low_categorical_threshold: 5
+
+    # Sets the chi-squared test threshold for identifying significant relationships.
+    # A value closer to 1 indicates stricter criteria for identifying strong relationships between variables,
+    # helping to filter out weaker associations that may not be meaningful in the analysis.
+    chi_squared_threshold: 0.999
+
+  # Categorical Feature settings
+  cat:
+    # Includes the length of categorical strings in the report.
+    # This information can provide insights into the variability and structure of the categorical data,
+    # which may influence how categories are treated in analysis.
+    length: True
+
+    # Analyzes the distribution of characters within categorical features.
+    # Understanding character distribution can help identify common patterns or anomalies within the data,
+    # which is useful for feature engineering and cleaning.
+    characters: True
+
+    # Analyzes the distribution of words within categorical features.
+    # This analysis provides insights into the richness and variability of the categorical data,
+    # potentially informing preprocessing steps like text cleaning or feature extraction.
+    words: True
+
+    # Number of observations to display for each categorical feature.
+    # This allows for a concise preview of the data, helping users quickly understand
+    # the distribution of values without overwhelming detail.
+    n_obs: 5
+
+    # Warns if a categorical feature has more unique values than this threshold.
+    # A high cardinality may indicate that the feature could be challenging to work with in
+    # modeling and may require encoding or aggregation strategies to handle effectively.
+    cardinality_threshold: 50
+
+    # Alerts if the imbalance score, indicating uneven distribution of categories, exceeds this threshold.
+    # This is important for understanding potential biases in the dataset, which can impact model performance and fairness.
+    imbalance_threshold: 0.5
+
+    # Sets the chi-squared test threshold for significant relationships in categorical features.
+    # Similar to the numerical features, this value helps in identifying strong associations
+    # within categorical data that may warrant further investigation.
+    chi_squared_threshold: 0.999
+
+  # Boolean Feature settings
+  bool:
+    # Number of observations to display for each boolean feature.
+    # This allows for a quick glance at the distribution of true/false values in the dataset,
+    # helping users identify potential biases or imbalances.
+    n_obs: 5
+
+    # Alerts if the imbalance score, indicating uneven distribution of true/false values, exceeds this threshold.
+    # An imbalance in boolean features may suggest underlying patterns or issues in the data collection process
+    # that could affect subsequent analyses.
+    imbalance_threshold: 0.5
+
+# Missing Data Visualization
+missing_diagrams:
+  # Includes a heatmap showing correlations between missing values across features.
+  # This visualization helps in understanding patterns of missingness, allowing for targeted strategies
+  # in data imputation and cleaning.
+  heatmap: True
+
+  # Includes a matrix plot showing the presence of missing values.
+  # The matrix provides a clear visual representation of missing data patterns, helping to assess
+  # the extent and structure of missingness within the dataset.
+  matrix: True
+
+  # Includes a bar chart showing the count of missing values for each feature.
+  # This bar chart aids in identifying features with significant amounts of missing data,
+  # which may require special handling or imputation strategies.
+  bar: True
+
+# Correlation Analysis settings
+correlations:
+  auto:
+    # Automatically calculates correlations based on variable types.
+    # Enabling this option facilitates quick insights into relationships within the dataset,
+    # helping to identify potential predictors and multicollinearity issues.
+    calculate: True
+
+    # Alerts about high correlations exceeding the specified threshold.
+    # This helps users become aware of potential multicollinearity that could affect modeling results.
+    warn_high_correlations: True
+
+    # Threshold for considering correlations as high.
+    # A threshold of 0.9 indicates a strong correlation, prompting closer inspection of correlated features.
+    threshold: 0.9
+
+  pearson:
+    # Computes the Pearson correlation coefficient for numerical features if True.
+    # The Pearson coefficient assesses the strength and direction of a linear relationship between two numerical features.
+    calculate: True
+
+    # Alerts about high Pearson correlations above the threshold if True.
+    # High correlations may indicate redundancy between features, affecting model interpretability.
+    warn_high_correlations: True
+
+    # Threshold for high Pearson correlations.
+    # A threshold of 0.5 indicates a moderate to strong correlation that may require attention.
+    threshold: 0.5
+
+  spearman:
+    # Computes the Spearman correlation coefficient for numerical features if True.
+    # The Spearman coefficient assesses monotonic relationships, useful for non-linear associations.
+    calculate: True
+
+    # Alerts about high Spearman correlations above the threshold if True.
+    # This helps identify significant relationships that may not be linear in nature.
+    warn_high_correlations: True
+
+    # Threshold for high Spearman correlations.
+    # A threshold of 0.8 indicates a strong monotonic relationship between variables.
+    threshold: 0.8
+
+  kendall:
+    # Computes the Kendall rank correlation coefficient for ordinal features if True.
+    # This coefficient measures the strength of association between two ranked variables.
+    calculate: True
+
+    # Alerts about high Kendall correlations above the threshold if True.
+    # High values may suggest strong associations between ranked variables that should be explored further.
+    warn_high_correlations: True
+
+    # Threshold for high Kendall correlations.
+    # A threshold of 0.9 indicates a very strong association.
+    threshold: 0.9
+
+  phi_k:
+    # Computes the Phi K correlation coefficient for mixed-type variables if True.
+    # This measure helps assess the relationship between categorical and continuous variables.
+    calculate: True
+
+    # Alerts about high Phi K correlations above the threshold if True.
+    # High values indicate strong associations between mixed types of variables.
+    warn_high_correlations: True
+
+    # Threshold for high Phi K correlations.
+    # A threshold of 0.9 indicates a very strong relationship that may need further investigation.
+    threshold: 0.9
+
+  cramers:
+    # Computes Cramer's V association coefficient for categorical features if True.
+    # Cramer's V quantifies the strength of association between two nominal variables.
+    calculate: True
+
+    # Alerts about high Cramer's V correlations above the threshold if True.
+    # This allows for the identification of strong associations in categorical data.
+    warn_high_correlations: True
+
+    # Threshold for high Cramer's V correlations.
+    # A threshold of 0.5 suggests a moderate to strong association.
+    threshold: 0.5
+
+# Feature Interaction Analysis
+interactions:
+  # Generates 2D scatter plots (or hexagonal binned plots) for pairs of continuous variables if True.
+  # This analysis helps visualize relationships and potential interactions between continuous features,
+  # which can provide valuable insights for model building and feature engineering.
+  continuous: True
+
+# Report Appearance and Style
+html:
+  style:
+    body:
+      # Sets the background color of the report body to blue.
+      # A visually appealing background can enhance the readability and aesthetics of the report.
+      background-color: "#337ab7"
+
+    # Chooses the visual theme of the report.
+    # Options include 'flatly' for a dark theme and 'united' for a light theme, allowing customization of report appearance.
+    theme: flatly
+
+    # URL for the logo displayed in the report's navigation bar.
+    # A logo adds branding to the report, enhancing its professional appearance and identity.
+    logo: "data:image/jpeg;base64,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"
+
+  # Defines the primary color for report elements such as headings.
+  # Consistent use of color enhances the visual coherence of the report, improving usability.
+  primary_color: "#337ab7"
+
+# Minimal Report Configuration
+# If True, generates a minimal report with only essential information.
+# This option is useful for quick reviews or presentations, allowing users to focus on key insights without extraneous detail.
+minimal: True
